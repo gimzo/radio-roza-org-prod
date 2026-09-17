@@ -4,13 +4,24 @@
   interface Props {
     items: T[];
     cardMinEm?: number;
+    /** Gornja granica broja stupaca; bez nje auto-fill slaže koliko god stane. */
+    maxCols?: number;
+    class?: string;
     card: Snippet<[T]>;
   }
 
-  let { items, cardMinEm = 18, card }: Props = $props();
+  let { items, cardMinEm = 18, maxCols, class: className, card }: Props = $props();
+
+  // Uz maxCols minimalna širina staze ne smije pasti ispod 1/maxCols širine
+  // mreže (gapovi odbijeni), pa auto-fill ne može složiti više stupaca od toga.
+  const trackMin = $derived(
+    maxCols
+      ? `min(max(${cardMinEm}em, (100% - ${(maxCols - 1) * 2}px) / ${maxCols}), 100%)`
+      : `min(${cardMinEm}em, 100%)`
+  );
 </script>
 
-<div class="article-grid" style:--card-min="{cardMinEm}em">
+<div class={['article-grid', className]} style:--track-min={trackMin}>
   {#each items as item (item.href)}
     {@render card(item)}
   {/each}
@@ -24,7 +35,7 @@
      pozadine, s uredno zatvorenim karticama. */
   .article-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--card-min), 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--track-min), 1fr));
     gap: 2px;
     overflow: hidden;
   }

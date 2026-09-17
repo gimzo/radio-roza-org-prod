@@ -54,10 +54,11 @@ async function loadCitaj(fetch: typeof globalThis.fetch) {
   const albumTjedna = allPosts.find((p) => p.isAlbumTjedna) ?? null;
   const rest = allPosts.filter((p) => p !== albumTjedna);
 
+  // Naslovnica prikazuje najviše 8 članaka (4 stupca × 2 reda na širokom
+  // ekranu); uži ekrani CSS-om skrivaju višak da zadnji red uvijek bude pun.
   return {
     albumTjedna,
-    previewPosts: rest.slice(0, 4),
-    archivePosts: rest.slice(4),
+    previewPosts: rest.slice(0, 8),
   };
 }
 

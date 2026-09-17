@@ -123,7 +123,7 @@
   );
 
   // --- Čitaj radio (streamano iz +page.server.ts pri klijentskoj navigaciji) ---
-  const citajSkeletonItems = Array.from({ length: 4 }, (_, i) => ({
+  const citajSkeletonItems = Array.from({ length: 8 }, (_, i) => ({
     href: `__citaj_skeleton__${i}`,
   }));
 
@@ -258,7 +258,7 @@
       </a>
     {/if}
 
-    <ArticleGrid items={citaj.previewPosts}>
+    <ArticleGrid items={citaj.previewPosts} maxCols={4} class="citaj-grid">
       {#snippet card(item)}
         <ArticleCard {...item} />
       {/snippet}
@@ -282,7 +282,7 @@
             <div class="skeleton-line"></div>
           </div>
         </div>
-        <ArticleGrid items={citajSkeletonItems}>
+        <ArticleGrid items={citajSkeletonItems} maxCols={4} class="citaj-grid">
           {#snippet card(item)}
             <ArticleCardSkeleton />
           {/snippet}
@@ -357,6 +357,46 @@
 
   .mid-col--citaj {
     container-type: inline-size;
+  }
+
+  /* Server šalje do 8 članaka, a broj stupaca raste sa širinom kolone
+     (auto-fill, min 18em, najviše 4). Dva pravila po rasponu drže mrežu punom:
+
+     1. gornja granica broja kartica da zadnji red bude pun — 1–2 stupca → 4,
+        3 stupca → 6, 4 stupca → 8;
+     2. rez nepotpunog zadnjeg reda kad CMS vrati manje članaka (npr. 6 u 4
+        stupca): prva kartica reda koja je među zadnjih (stupci − 1) znači da
+        joj je red krnj, pa nestaje ona i sve iza nje. :first-child je izuzet
+        da jedini, nepotpun red ne nestane cijeli.
+
+     Skrivene kartice ostaju u DOM-u (i u SSR HTML-u), ali bez okvira ne
+     povlače slike jer su lazy. */
+  @container (width < 54em) {
+    :global(.citaj-grid > :nth-child(n + 5)) {
+      display: none;
+    }
+  }
+
+  @container (36em <= width < 54em) {
+    :global(.citaj-grid > :nth-child(2n + 1):not(:first-child):nth-last-child(-n + 1)),
+    :global(.citaj-grid > :nth-child(2n + 1):not(:first-child):nth-last-child(-n + 1) ~ *) {
+      display: none;
+    }
+  }
+
+  @container (54em <= width < 72em) {
+    :global(.citaj-grid > :nth-child(n + 7)),
+    :global(.citaj-grid > :nth-child(3n + 1):not(:first-child):nth-last-child(-n + 2)),
+    :global(.citaj-grid > :nth-child(3n + 1):not(:first-child):nth-last-child(-n + 2) ~ *) {
+      display: none;
+    }
+  }
+
+  @container (width >= 72em) {
+    :global(.citaj-grid > :nth-child(4n + 1):not(:first-child):nth-last-child(-n + 3)),
+    :global(.citaj-grid > :nth-child(4n + 1):not(:first-child):nth-last-child(-n + 3) ~ *) {
+      display: none;
+    }
   }
 
   /* Program list */
