@@ -166,12 +166,12 @@ export const blocks: Block[] = [
   },
   {
     title: 'Kapuz',
-    description: 'Glazba za one dane kad ni kava ne pomaže. Hoodie up, world out.',
-    tags: ['Hip-Hop', 'R&B', 'Lo-fi', 'Downtempo'],
+    description: 'Kapuz svega ili maneštra, ponekada najbolje sjeda za odmor.',
+    tags: ['Indie', 'R&B', 'Alt', 'Pop'],
   },
   {
     title: 'Kava sa šlagerom',
-    description: 'Šlager hits koji idu uz jutarnju kavu - slatko, pjenjavo, možda malo lipkavo.',
+    description: 'Šlager hits koji idu uz jutarnju kavu - slatko i gorko.',
     tags: ['Šlager', 'Pop', 'Retro', 'Folk'],
   },
   {
@@ -186,7 +186,7 @@ export const blocks: Block[] = [
   },
   {
     title: 'Naše Gore Riff - Ri Rock',
-    description: 'Domaći rock koji lupa jače od rakije. Balkanski riffovi bez granica.',
+    description: 'Domaći rock koji lupa jače od rakije. Lokalpatriotska verzija.',
     tags: ['Rock', 'Domaći', 'Balkan', 'Alternative'],
   },
   {
@@ -200,19 +200,14 @@ export const blocks: Block[] = [
     tags: ['Electro', 'Electronic', 'Balkan', 'Synth'],
   },
   {
-    title: 'Naše Gore Riff',
-    description: 'Domaći riffovi koji lupe pravo u srce - balkanski zvukovi bez granica.',
-    tags: ['Rock', 'Balkan', 'Alternative', 'Domaći'],
-  },
-  {
     title: 'Naše Gore Riff - Rock',
     description: 'Domaći rock koji lupa jače od rakije. Balkanski riffovi bez granica.',
     tags: ['Rock', 'Hard Rock', 'Balkan', 'Domaći'],
   },
   {
     title: 'Don Eladio',
-    description: 'Elegantno opasna glazba - kao dobar mezcal, glatko ide, ali ima punch.',
-    tags: ['Latin', 'Jazz', 'Bossa Nova', 'World Music'],
+    description: 'Latino ritmovi po izboru našeg romantika Don Eladia.',
+    tags: ['Latin', 'Cumbia', 'Bossa Nova', 'World Music'],
   },
   {
     title: 'Okolo Naokolo - Afro',
@@ -226,7 +221,7 @@ export const blocks: Block[] = [
   },
   {
     title: 'Funkushima',
-    description: 'Radioaktivno funkaran - groove koji se ne zaustavlja, možda i zarazno.',
+    description: 'Radioaktivno funky - groove koji se ne zaustavlja, možda i zarazno.',
     tags: ['Funk', 'Groove', 'Soul', 'Disco'],
   },
   {
@@ -296,12 +291,12 @@ export const blocks: Block[] = [
   },
   {
     title: 'Yugofonija',
-    description: 'Nostalgija na vinilu - kad je Balkan bio jedan, a glazba bila zajedničku.',
+    description: 'Nostalgija na vinilu - kad je Balkan bio jedan, a glazba bila zajednička.',
     tags: ['Retro', 'Yugo', 'Nostalgia', 'Pop', 'Rock'],
   },
   {
     title: 'Ja Biram',
-    description: 'Demokratija na radiju - ti biraš, mi puštamo, svi uživamo.',
+    description: 'Demokracija na radiju - ti biraš, mi puštamo, svi uživamo.',
     tags: ['Mixed', 'Listener Request', 'Varied', 'Interactive'],
   },
   {
@@ -321,17 +316,19 @@ export const blocks: Block[] = [
   },
   {
     title: 'HEX.',
-    description: 'Šesterokutni zvukovi za digitalne duše - algoritmi koji groovaju.',
-    tags: ['Electronic', 'Experimental', 'Glitch', 'Digital'],
+    description:
+      'Heavy and experimental donosi upravo takvu muziku. Radiofoničnost nije zagarantirana.',
+    tags: ['Rock', 'Metal', 'Experimental'],
   },
   {
     title: 'Naftalina',
-    description: 'Vintage vibes iz babine škrinje - staro zlato koje nikad ne izlazi iz mode.',
+    description: 'Vintage vibes u režiji Sandra Bačića - staro zlato koje nikad ne izlazi iz mode.',
     tags: ['Oldies', 'Retro', 'Nostalgia', 'Vintage'],
   },
   {
     title: 'Fader',
-    description: 'Kad DJ postane dirigent, a mikseta postane orkestar - pure mixing magic.',
+    description:
+      'Throwback iskopi, promocija novih singlova, vijesti, gosti, intervjui i 60 minutni mixevi za kraj emisije.',
     tags: ['DJ', 'Electronic', 'Mix', 'Dance', 'House'],
   },
   {
@@ -341,12 +338,13 @@ export const blocks: Block[] = [
   },
   {
     title: 'Reality Check',
-    description: 'Provjera stvarnosti kroz bass i melodiju - wake up call za uši.',
+    description: 'Provjera stvarnosti domaće scene po odabiru Dubravka Jagatića.',
     tags: ['Electronic', 'Hip-Hop', 'Alternative', 'Bass'],
   },
   {
     title: 'Podzemna kulisa - Peperton specijal',
-    description: 'Underground scena kroz piperov objektiv - kultura ispod radara.',
+    description:
+      'Domaća underground scena je živa, Peperton vam donosi ono najnovije što nećete čuti na komercijalnim radijima.',
     tags: ['Underground', 'Alternative', 'Culture', 'Indie'],
   },
 ];
