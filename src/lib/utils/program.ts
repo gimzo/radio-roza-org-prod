@@ -1,5 +1,5 @@
 import { shows } from '../data/shows';
-import { stationDateAtNoonUTC, stationWeekday } from './time';
+import { stationDateAtNoonUTC, stationMinutes, stationWeekday } from './time';
 
 export type Day =
   | 'Monday'
@@ -26,6 +26,7 @@ export interface Show {
   frequency?: Frequency;
   duration?: number | [number, number]; // minute; raspon kad trajanje varira
   href?: string; // stranica emisije na /emisije
+  authors?: string[]; // samo za emisije bez stranice; inače se čitaju iz `shows`
 }
 
 function parseTime(show_start: string): number {
@@ -389,9 +390,16 @@ export function durationLabel(show: Show): string | null {
   return a < 60 && b <= 60 ? `${a}–${b} min` : `${fmtDuration(a)} – ${fmtDuration(b)}`;
 }
 
-/** "~12:00" za emisije — kreću kad završi pjesma koja se tada vrti. */
-export function startLabel(show: Show): string {
-  return isInsert(show) ? `~${show.show_start}` : show.show_start;
+/**
+ * "Marina Jakšić, Ivan Dragnić" — prazno kad autori nisu upisani.
+ * Upis u programu ima prednost pred stranicom, pa se emisija bez stranice
+ * (ili s drugom ekipom nego što stranica kaže) rješava na licu mjesta.
+ * Čita se neovisno o opisu: stranica bez opisa i dalje daje autore.
+ */
+export function authorsLabel(show: Show): string | null {
+  const page = show.href ? shows.find((s) => s.href === show.href) : undefined;
+  const authors = show.authors?.length ? show.authors : page?.authors;
+  return authors?.length ? authors.join(', ') : null;
 }
 
 /** Opis i tagovi: emisije sa stranicom uzimaju ih odande, ostalo iz `blocks`. */
@@ -439,6 +447,28 @@ export function airsOn(show: Show, date: Date): boolean {
     Date.UTC(day.getUTCFullYear(), day.getUTCMonth() + 1, 0)
   ).getUTCDate();
   return f.weeks.includes(Math.ceil(d / 7)) || (d + 7 > daysInMonth && f.weeks.includes(-1));
+}
+
+/**
+ * Stavke koje tek slijede, počevši od `date` i prelijevajući se na iduće dane
+ * dok se ne skupi `count` njih. Lista teče kontinuirano, bez oznake dana.
+ */
+export function upcomingEntries(date: Date, count: number): Show[] {
+  const minutes = stationMinutes(date);
+  // Podne po UTC-u drži računanje dana podalje od prijelaza na ljetno vrijeme.
+  const day = stationDateAtNoonUTC(date);
+  const out: Show[] = [];
+
+  for (let i = 0; i < 8 && out.length < count; i++) {
+    out.push(
+      ...program
+        .filter((s) => airsOn(s, day) && (i > 0 || parseMinutes(s.show_start) > minutes))
+        .sort((a, b) => parseMinutes(a.show_start) - parseMinutes(b.show_start))
+    );
+    day.setUTCDate(day.getUTCDate() + 1);
+  }
+
+  return out.slice(0, count);
 }
 
 export const sortedByDay: Show[] = [...program].sort((a, b) => a.day.localeCompare(b.day));

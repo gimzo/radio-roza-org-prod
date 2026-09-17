@@ -3,11 +3,11 @@
   import {
     program,
     airsOn,
+    authorsLabel,
     currentEntry,
     durationLabel,
     isInsert,
     showInfo,
-    startLabel,
     type Day,
     type Show,
   } from '$lib/utils/program';
@@ -157,6 +157,7 @@
             {@const info = showInfo(show)}
             {@const isNow = show === currentShow}
             {@const meta = metaLabel(show)}
+            {@const authors = authorsLabel(show)}
             {@const isOff = !airsThisWeek(show)}
             <li
               class="show-row"
@@ -165,7 +166,7 @@
               class:is-insert={isInsert(show)}
               id={isNow ? 'trenutno' : undefined}
             >
-              <span class="show-time">{startLabel(show)}</span>
+              <span class="show-time">{show.show_start}</span>
               <div class="show-info">
                 <h3 class="show-title">
                   {#if show.href}
@@ -178,6 +179,9 @@
                   <p class="show-meta">
                     {meta}{#if isOff}<span class="show-off">{' · ne ide ovaj tjedan'}</span>{/if}
                   </p>
+                {/if}
+                {#if authors}
+                  <p class="show-authors">{authors}</p>
                 {/if}
                 {#if info}
                   <p class="show-desc">{info.description}</p>
@@ -440,7 +444,8 @@
     text-decoration: underline;
   }
 
-  .show-meta {
+  .show-meta,
+  .show-authors {
     font-family: var(--font-mono);
     font-size: var(--text-meta);
     color: rgb(0 0 0 / 0.55);

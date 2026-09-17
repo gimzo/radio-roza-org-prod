@@ -51,9 +51,8 @@
     currentEntry,
     durationLabel,
     isInsert,
-    parseMinutes,
     showInfo,
-    startLabel,
+    upcomingEntries,
   } from '$lib/utils/program';
   import { stationWeekday, stationMinutes } from '$lib/utils/time';
 
@@ -115,11 +114,9 @@
 
   const currentShow = $derived(currentEntry(todayShows, currentTime));
 
+  // Uvijek 6 redaka: lista se prelijeva na iduće dane, bez oznake dana.
   const programPreview = $derived(
-    [
-      ...(currentShow ? [currentShow] : []),
-      ...todayShows.filter((s) => parseMinutes(s.show_start) > currentTime).slice(0, 4),
-    ].slice(0, 5)
+    [...(currentShow ? [currentShow] : []), ...upcomingEntries(now, 6)].slice(0, 6)
   );
 
   // --- Čitaj radio (streamano iz +page.server.ts pri klijentskoj navigaciji) ---
@@ -194,13 +191,14 @@
     <div class="section-header">
       <h2 class="section-title">program danas</h2>
     </div>
+    <p class="section-note">vremena su okvirna</p>
 
     <ul class="program-list">
-      {#each programPreview as show (show.title + show.show_start)}
+      {#each programPreview as show (show.day + show.show_start + show.title)}
         {@const isNow = show === currentShow}
         {@const info = showInfo(show)}
         <li class="program-row" class:is-now={isNow}>
-          <span class="program-time">{startLabel(show)}</span>
+          <span class="program-time">{show.show_start}</span>
           <div class="program-info">
             <span class="program-name">{show.title}</span>
             {#if isInsert(show)}
@@ -339,6 +337,13 @@
     line-height: 1;
   }
 
+  .section-note {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    color: rgb(0 0 0 / 0.55);
+    padding-bottom: 0.5rem;
+  }
+
   .section-link {
     margin: 0.75rem 0;
   }
@@ -413,7 +418,7 @@
   }
 
   .program-time {
-    font-family: var(--font-body);
+    font-family: var(--font-display);
     font-size: var(--text-title);
     flex-shrink: 0;
     line-height: 1.2;
@@ -616,7 +621,11 @@
     }
 
     .program-desc {
-      display: block;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
     }
 
     .program-tags {
