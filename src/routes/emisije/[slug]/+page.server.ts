@@ -14,7 +14,7 @@ export async function load({ params, fetch, setHeaders }) {
   // ListenNotes monthly request quota.
   setHeaders({
     'Cache-Control': 'public, max-age=300',
-    'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=1800, stale-while-revalidate=86400',
+    'Cloudflare-CDN-Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=86400',
   });
 
   const res = await fetch(

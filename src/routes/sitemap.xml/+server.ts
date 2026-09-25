@@ -29,7 +29,7 @@ const STATIC_PATHS = [
 export async function GET({ fetch, url, setHeaders }) {
   setHeaders({
     'Cache-Control': 'public, max-age=3600',
-    'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=3600, stale-while-revalidate=86400',
+    'Cloudflare-CDN-Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
   });
 
   let articlePaths: string[] = [];

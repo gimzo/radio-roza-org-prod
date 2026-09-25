@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({ fetch, params, setHeaders }) => {
   // Set after the 404 check so missing slugs don't get cached on the CDN
   setHeaders({
     'Cache-Control': 'public, max-age=60',
-    'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=3600',
+    'Cloudflare-CDN-Cache-Control': 'public, s-maxage=300, stale-while-revalidate=3600',
   });
 
   const date = formatDate(post.publishedAt);

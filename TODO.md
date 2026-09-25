@@ -16,7 +16,8 @@ odrađen u kodu (vidi git log).
 
 3. **Potvrdi kanonsku domenu.** U `svelte.config.js` (prerender.origin) i `static/robots.txt`
    postavljeno je `https://radio-roza.org` (bez www). Ako je kanonska verzija drukčija,
-   promijeni na oba mjesta. Provjeri i Netlify redirect www → apex.
+   promijeni na oba mjesta. Provjeri i redirect www → apex (na Cloudflareu je to
+   Redirect Rule na zoni, `_redirects` pokriva samo statiku).
 
 4. **CC BY-SA linija u footeru** — i dalje placeholder dok ekipa ne potvrdi licenciju.
 
@@ -25,11 +26,14 @@ odrađen u kodu (vidi git log).
 
 ## Provjere nakon deploya
 
-6. **Netlify cache radi:** otvori članak dvaput i pogledaj response header `cache-status` —
-   drugi put treba pisati hit (Netlify Durable/Edge). Isto za `/emisije/<slug>`.
+6. **Cloudflare cache radi:** otvori članak dvaput i pogledaj response header
+   `cf-cache-status` — drugi put treba pisati HIT (ili UPDATING dok traje SWR).
+   Isto za `/emisije/<slug>`. Napomena: `Cloudflare-CDN-Cache-Control` sam po sebi
+   nije dovoljan — HTML na Pagesu se ne kešira dok se na zoni ne postavi Cache
+   Rule koja ga proglasi podobnim za keš.
 
 7. **Prerender radi:** `/kontakt`, `/emisije` i `o-nama/*` više se ne renderiraju kroz funkciju
-   nego kao statične datoteke (vidi se u Netlify deploy summaryju pod "Prerendered pages").
+   nego kao statične datoteke — u `_routes.json` moraju biti pod `exclude`.
 
 8. **Player na stvarnom uređaju.** Player na Safariju/iOS-u koristi nativni HLS (ne skida
    hls.js uopće), a na ostalim preglednicima hls.js se učitava tek na prvi klik play.

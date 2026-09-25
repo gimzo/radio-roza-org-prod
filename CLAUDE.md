@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Language**: TypeScript (strict mode)
 - **Package Manager**: yarn (v4 — use `yarn`, never `npm` or `pnpm`)
 - **Framework**: SvelteKit 2 + Svelte 5 with runes mode enabled globally
-- **Deployment**: Netlify (`@sveltejs/adapter-netlify`)
+- **Deployment**: Cloudflare Pages (`@sveltejs/adapter-cloudflare`)
 
 ---
 

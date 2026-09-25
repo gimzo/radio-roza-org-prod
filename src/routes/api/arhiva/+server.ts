@@ -6,7 +6,7 @@ import { fetchArchive } from '$lib/api/mixcloud';
 export async function GET({ fetch, setHeaders }) {
   setHeaders({
     'Cache-Control': 'public, max-age=300',
-    'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=1800, stale-while-revalidate=86400',
+    'Cloudflare-CDN-Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=86400',
   });
 
   try {

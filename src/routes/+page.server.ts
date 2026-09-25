@@ -63,12 +63,12 @@ async function loadCitaj(fetch: typeof globalThis.fetch) {
 }
 
 export const load: PageServerLoad = async ({ fetch, setHeaders, isDataRequest }) => {
-  // SSR HTML se kešira na Netlify CDN-u; dugi SWR prozor znači da i rijetki
+  // SSR HTML se kešira na Cloudflare CDN-u; dugi SWR prozor znači da i rijetki
   // posjetitelji dobiju keširanu kopiju odmah, dok se svježa verzija povlači
   // u pozadini. Mixcloud snimke se dohvaćaju klijentski pa tu ne stare.
   setHeaders({
     'Cache-Control': 'public, max-age=60',
-    'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=86400',
+    'Cloudflare-CDN-Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
   });
 
   const citaj = loadCitaj(fetch);

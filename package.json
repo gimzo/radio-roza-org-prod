@@ -14,7 +14,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-netlify": "latest",
+    "@sveltejs/adapter-cloudflare": "^7.2.9",
     "@sveltejs/kit": "latest",
     "@sveltejs/vite-plugin-svelte": "latest",
     "@types/node": "latest",
@@ -24,7 +24,8 @@
     "svelte": "latest",
     "svelte-check": "latest",
     "typescript": "latest",
-    "vite": "latest"
+    "vite": "latest",
+    "wrangler": "^4.123.0"
   },
   "packageManager": "yarn@4.13.0",
   "dependencies": {

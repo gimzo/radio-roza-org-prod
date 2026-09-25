@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ fetch, params, setHeaders }) => {
 
   setHeaders({
     'Cache-Control': 'public, max-age=60',
-    'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=86400',
+    'Cloudflare-CDN-Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
   });
 
   // Emisije s ovim tagom (statični podaci, normalizirano po slugu).

@@ -12,7 +12,7 @@ const categories = categoriesJson.docs.map((c) => ({ id: c.id, title: c.title, s
 export const load: PageServerLoad = async ({ fetch, url, setHeaders, isDataRequest }) => {
   setHeaders({
     'Cache-Control': 'public, max-age=60',
-    'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=86400',
+    'Cloudflare-CDN-Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
   });
 
   const page = Math.max(1, Number(url.searchParams.get('stranica')) || 1);

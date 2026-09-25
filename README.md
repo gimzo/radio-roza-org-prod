@@ -15,7 +15,7 @@ To recreate this project with the same configuration:
 
 ```sh
 # recreate this project
-npx sv@0.13.0 create --template minimal --types ts --add prettier eslint sveltekit-adapter="adapter:netlify" mcp="ide:claude-code+setup:local" --install yarn radio-roza-org-v2
+npx sv@0.13.0 create --template minimal --types ts --add prettier eslint sveltekit-adapter="adapter:cloudflare" mcp="ide:claude-code+setup:local" --install yarn radio-roza-org-v2
 ```
 
 ## Developing
