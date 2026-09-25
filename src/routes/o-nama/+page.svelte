@@ -170,7 +170,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Stilovi za zakomentiranu galeriju studija (TODO #13) — odkomentiraj s markupom:
+  /* Stilovi za zakomentiranu galeriju studija (TODO #15) — odkomentiraj s markupom:
   .photo-grid--landscape {
     grid-template-columns: repeat(2, 1fr);
   }
